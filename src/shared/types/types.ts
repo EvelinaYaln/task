@@ -1,6 +1,11 @@
-export interface IFullCoinsData {
+export interface IFullCoinsDataServer {
   id: string;
   name: string;
   min_size: string;
 }
-export type ICoinsData = Pick<IFullCoinsData, 'id' | 'name'>;
+
+export interface IFullCoinsDataClient {
+  id: string;
+  name: string;
+  min_size?: string;
+}

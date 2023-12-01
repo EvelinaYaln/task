@@ -2,8 +2,9 @@ import { FC, useState } from 'react';
 import styles from './InputSelect.module.scss';
 
 interface Option {
-  value: string;
-  label: string;
+  name: string;
+  id: string;
+  minSize?: string;
 }
 
 interface InputSelectProps {
@@ -14,7 +15,7 @@ interface InputSelectProps {
 
 export const InputSelect: FC<InputSelectProps> = ({ options, onChange }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [selectedValue, setSelectedValue] = useState<string>(options[0]?.value || '');
+  const [selectedValue, setSelectedValue] = useState<string>(options[0]?.name || '');
 
   const handleToggleOpen = () => {
     setIsOpen(!isOpen);
@@ -34,22 +35,22 @@ export const InputSelect: FC<InputSelectProps> = ({ options, onChange }) => {
   return (
     <div className={styles.inputSelect__content}>
       <div className={styles.inputSelect__label} onClick={handleToggleOpen}>
-        {options.find(option => option.value === selectedValue)?.label}
+        {options.find(option => option.name === selectedValue)?.id}
         <button className={styles.button__select} onClick={handleToggleOpen} />
       </div>
       {isOpen && (
         <div className={styles.options__list}>
-          {options.map(option => (
+          {options.map((option, i) => (
             <li
-              key={option.value}
+              key={i}
               className={
-                option.value === selectedValue
+                option.name === selectedValue
                   ? `${styles.list__item} ${styles.selected}`
                   : styles.list__item
               }
-              onClick={() => handleOptionClick(option.value)}
+              onClick={() => handleOptionClick(option.name)}
             >
-              {option.label}
+              {option.id}
             </li>
           ))}
         </div>

@@ -5,13 +5,17 @@ import Main from './pages/main';
 import { store } from './app/appStore';
 import reportWebVitals from './reportWebVitals';
 import './shared/styles/global.scss';
+import { ErrorBoundary } from './shared/ui/ErrorBoundary/ErrorBoundary';
+import { ErrorFallback } from './shared/ui/ErrorFallback/ErrorFallback';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <Main />
-    </Provider>
+    <ErrorBoundary fallback={<ErrorFallback />}>
+      <Provider store={store}>
+        <Main />
+      </Provider>
+    </ErrorBoundary>
   </React.StrictMode>,
 );
 

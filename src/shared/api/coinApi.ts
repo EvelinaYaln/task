@@ -1,14 +1,14 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-import { ICoinsData, IFullCoinsData } from '../types/types';
+import { IFullCoinsDataClient, IFullCoinsDataServer } from '../types/types';
 
 export const coinApi = createApi({
   reducerPath: 'coinApi',
   baseQuery: fetchBaseQuery({ baseUrl: 'https://api.coinbase.com/' }),
   endpoints: build => ({
-    getCoins: build.query<ICoinsData[], string>({
+    getCoins: build.query<IFullCoinsDataClient[], void>({
       query: () => 'v2/currencies',
-      transformResponse: (response: { data: IFullCoinsData[] }) =>
+      transformResponse: (response: { data: IFullCoinsDataServer[] }) =>
         response.data.map(item => ({
           id: item.id,
           name: item.name,

@@ -1,16 +1,28 @@
 import { FC, useState } from 'react';
 import { InputSelect } from '../shared/ui/inputSelect/InputSelect';
+import { Loader } from '../shared/ui/Loader/Loader';
+import { useGetCoinsQuery } from '../shared/api/coinApi';
 import img from '../shared/ui/img/kitten.png';
 import styles from './main.module.scss';
+
 const Main: FC = () => {
-  const [selectedOption, setSelectedOption] = useState<string>('');
+  const { data, isLoading, isError } = useGetCoinsQuery();
+  const currencies = data ?? [];
+
+  const [selectedOption, setSelectedOption] = useState<string>('United Arab Emirates Dirham');
   const handleOptionChange = (value: string) => {
     setSelectedOption(value);
   };
-  const OPTIONS = [
-    { value: '1', label: 'Yes' },
-    { value: '2', label: 'No' },
-  ] as const;
+
+  if (isError) {
+    return 'Something went wrong. Try again later';
+  }
+  if (isLoading) {
+    return <Loader />;
+  }
+  if (currencies.length < 1)
+    return <div>There are no results found. Please try another search.</div>;
+
   return (
     <div className={styles.main__container}>
       <div className={styles.main}>
@@ -20,7 +32,11 @@ const Main: FC = () => {
             <h3 className={styles.subcaption}>currencies academic terms</h3>
           </div>
           <div className={styles.input__container}>
-            <InputSelect options={OPTIONS} value={selectedOption} onChange={handleOptionChange} />
+            <InputSelect
+              options={currencies}
+              value={selectedOption}
+              onChange={handleOptionChange}
+            />
           </div>
         </div>
         <div className={styles.img__container}>
@@ -28,7 +44,7 @@ const Main: FC = () => {
         </div>
       </div>
       <div className={styles.block__down}>
-        <h2 className={styles.text}>Russian Ruble</h2>
+        <h2 className={styles.text}>{selectedOption}</h2>
       </div>
     </div>
   );
