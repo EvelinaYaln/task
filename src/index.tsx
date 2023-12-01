@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
-import Main from './pages/main';
+import { CurrencyPage } from './pages/CurrencyPage';
 import { store } from './app/appStore';
 import reportWebVitals from './reportWebVitals';
 import './shared/styles/global.scss';
@@ -13,7 +13,7 @@ root.render(
   <React.StrictMode>
     <ErrorBoundary fallback={<ErrorFallback />}>
       <Provider store={store}>
-        <Main />
+        <CurrencyPage />
       </Provider>
     </ErrorBoundary>
   </React.StrictMode>,

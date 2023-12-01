@@ -1,0 +1,38 @@
+@import '../shared/styles/index.scss';
+
+.main {
+  display: flex;
+  justify-content: space-around;
+  align-items: start;
+}
+
+.main__container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.select__container {
+  display: flex;
+  flex-direction: column;
+}
+
+.input__container {
+  margin-left: -5px;
+}
+
+@media screen and (max-width: 500px) {
+  .select__container {
+    padding-left: 20px;
+  }
+}
+
+@media screen and (max-width: 350px) {
+  .main__container {
+    margin: 0 auto;
+  }
+
+  .input__container {
+    margin: 0 auto;
+  }
+}

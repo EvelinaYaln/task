@@ -2,10 +2,12 @@ import { FC, useState } from 'react';
 import { InputSelect } from '../shared/ui/inputSelect/InputSelect';
 import { Loader } from '../shared/ui/Loader/Loader';
 import { useGetCoinsQuery } from '../shared/api/coinApi';
-import img from '../shared/ui/img/kitten.png';
-import styles from './main.module.scss';
+import { CatImg } from '../widgets/CatImg/CatImg';
+import { Footer } from '../widgets/Footer/Footer';
+import { Header } from '../widgets/Header/Header';
+import styles from './CurrencyPage.module.scss';
 
-const Main: FC = () => {
+export const CurrencyPage: FC = () => {
   const { data, isLoading, isError } = useGetCoinsQuery();
   const currencies = data ?? [];
 
@@ -27,10 +29,7 @@ const Main: FC = () => {
     <div className={styles.main__container}>
       <div className={styles.main}>
         <div className={styles.select__container}>
-          <div className={styles.text__container}>
-            <h1 className={styles.caption}>CAT</h1>
-            <h3 className={styles.subcaption}>currencies academic terms</h3>
-          </div>
+          <Header />
           <div className={styles.input__container}>
             <InputSelect
               options={currencies}
@@ -39,15 +38,9 @@ const Main: FC = () => {
             />
           </div>
         </div>
-        <div className={styles.img__container}>
-          <img src={img} alt='Изображение кота'></img>
-        </div>
+        <CatImg />
       </div>
-      <div className={styles.block__down}>
-        <h2 className={styles.text}>{selectedOption}</h2>
-      </div>
+      <Footer selectedOption={selectedOption} />
     </div>
   );
 };
-
-export default Main;

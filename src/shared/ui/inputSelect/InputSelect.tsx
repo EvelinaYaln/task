@@ -1,4 +1,5 @@
 import { FC, useState } from 'react';
+import cn from 'classnames';
 import styles from './InputSelect.module.scss';
 
 interface Option {
@@ -43,11 +44,7 @@ export const InputSelect: FC<InputSelectProps> = ({ options, onChange }) => {
           {options.map((option, i) => (
             <li
               key={i}
-              className={
-                option.name === selectedValue
-                  ? `${styles.list__item} ${styles.selected}`
-                  : styles.list__item
-              }
+              className={cn(styles.list__item, option.name === selectedValue && styles.selected)}
               onClick={() => handleOptionClick(option.name)}
             >
               {option.id}
